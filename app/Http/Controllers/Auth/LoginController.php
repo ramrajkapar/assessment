@@ -27,7 +27,15 @@ class LoginController extends Controller
         );
 
         Auth::login($user);
-        // dd(auth()->user());
-        return redirect('/home');
+        return redirect()->route('admin.home');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
